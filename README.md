@@ -90,5 +90,19 @@ PostConstruct 注释用于在依赖关系注入完成之后需要执行的方法
 参心大地坐标系：指经过定位与定向后，地球椭球的中心不与地球质心重合而是接近地球质心。区域性大地坐标系。是我国基本测图和常规大地测量的基础。如Beijing54、Xian80。
 地心大地坐标系：指经过定位与定向后，地球椭球的中心与地球质心重合。如CGCS2000、WGS84。
 
+
+14、InitializingBean接口
+
+
+InitializingBean接口为bean提供了初始化方法的方式，它只包括afterPropertiesSet方法，凡是继承该接口的类，在初始化bean的时候都会执行该方法。有时候我们的Bean中有某个属性需要注入，
+但是又不能通过一般的方式注入，什么意思呢？举个栗子：首先我们有个Service,在该Service中有一个属性，但是该属性不支持Spring注入，只能通过Build或者new的方式创建（比如StringBuffer之类的），
+但是我们想在Spring配置Bean的时候一起将该属性注入进来，这时候该怎么办呢？这时候可以通过实现InitializingBean接口来解决。在依赖注入完成的时候，spring会去检查这个类是否实现了InitializingBean接口，如果实现了InitializingBean接口，就会去调用这个类的afterPropertiesSet()方法。
+所以afterPropertiesSet()方法的执行时间点就很清楚了，发生在所有的properties被注入后。
+
+
+15、MultiMap
+
+
+Multimap 顾名思义通过名字可想，Multi就是很多的意思，允许我们一个关键字对应多个value,所有说Multimap允许重复的键值插入容器。（一般使用map,只能保证一个key对应一个value）。参考（https://blog.csdn.net/gongxinju/article/details/53634434）
 # -
 记录平时自己遇到的新词汇
